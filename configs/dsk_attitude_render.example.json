@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "inputs": {
+    "attitudes_csv": "/path/to/attitudes.csv",
+    "frames_csv": "/path/to/frames.csv",
+    "dsk": "/path/to/shape_model.bds",
+    "frame_kernel_paths": [
+      "/path/to/body_frames.tf"
+    ],
+    "expected_dsk_center_id": 999001,
+    "expected_dsk_frame_id": 999001,
+    "expected_dsk_frame_name": "BODY_FIXED"
+  },
+  "executables": {
+    "native": "/path/to/build/smallbody_dsk_render",
+    "std2isis": "/path/to/asp360_new/bin/std2isis",
+    "isis2std": "/path/to/asp360_new/bin/isis2std",
+    "stats": "/path/to/asp360_new/bin/stats",
+    "tiffinfo": "/path/to/asp360_new/bin/tiffinfo",
+    "gdalinfo": "/path/to/asp360_new/bin/gdalinfo",
+    "asp_version": "/path/to/asp360_new/bin/bundle_adjust",
+    "parallel": "/path/to/asp360_new/bin/parallel"
+  },
+  "output_run_dir": "/path/to/new/output/run-001",
+  "render": {
+    "maximum_range_m": 100000.0,
+    "tile_width_px": 256,
+    "tile_height_px": 256,
+    "ambient": 0.10,
+    "diffuse": 0.90
+  },
+  "isis_stretch": {
+    "minpercent": 0.1,
+    "maxpercent": 99.9
+  },
+  "jobs": 1
+}

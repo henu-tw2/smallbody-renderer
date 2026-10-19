@@ -1,0 +1,13 @@
+# Modified by: gengxun + Codex
+# Date: 2026-10-19
+# Summary: Ignore local build trees, renderer runs, and Python caches.
+
+.build/
+build/
+outputs/
+__pycache__/
+*.py[cod]
+*.bds
+*.tif
+*.cub
+*.log

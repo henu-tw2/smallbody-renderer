@@ -1,0 +1,58 @@
+{
+  "_change_record": {
+    "modified_by": "gengxun + Codex",
+    "date": "2026-08-11",
+    "summary": "Remove the unused ASP executable from the native renderer schema-2 contract."
+  },
+  "schema_version": 2,
+  "inputs": {
+    "attitudes_csv": "/absolute/path/to/attitudes.csv",
+    "frames_csv": "/absolute/path/to/frames.v2.radtan5.csv",
+    "illumination_csv": "/absolute/path/to/illumination.csv",
+    "dsk": "/absolute/path/to/shape_model.bds",
+    "frame_kernel_paths": [
+      "/absolute/path/to/body_frames.tf"
+    ],
+    "expected_dsk_center_id": 999001,
+    "expected_dsk_frame_id": 999001,
+    "expected_dsk_frame_name": "BODY_FIXED"
+  },
+  "executables": {
+    "native": "/absolute/path/to/build/smallbody_dsk_render",
+    "std2isis": "/absolute/path/to/asp360_new/bin/std2isis",
+    "isis2std": "/absolute/path/to/asp360_new/bin/isis2std",
+    "stats": "/absolute/path/to/asp360_new/bin/stats",
+    "tiffinfo": "/absolute/path/to/asp360_new/bin/tiffinfo",
+    "gdalinfo": "/absolute/path/to/asp360_new/bin/gdalinfo",
+    "parallel": "/absolute/path/to/asp360_new/bin/parallel"
+  },
+  "output_run_dir": "/absolute/path/to/new/output/run-001",
+  "render": {
+    "maximum_range_m": 100000.0,
+    "tile_width_px": 256,
+    "tile_height_px": 256,
+    "exposure_scale": 1.0,
+    "illumination": {
+      "mode": "point_sun_lambert",
+      "ambient": 0.05,
+      "diffuse": 0.95,
+      "cast_shadows": true,
+      "shadow_origin_offset_m": 0.01,
+      "shadow_maximum_range_m": 2000.0
+    },
+    "camera_distortion": {
+      "inverse_max_iterations": 20,
+      "roundtrip_tolerance_px": 1.0e-6
+    },
+    "surface_appearance": {
+      "mode": "plate_albedo",
+      "default_albedo": 1.0,
+      "plate_albedo_csv": "/absolute/path/to/albedo-run/plate_albedo.csv"
+    }
+  },
+  "isis_stretch": {
+    "minpercent": 0.1,
+    "maxpercent": 99.9
+  },
+  "jobs": 1
+}
