@@ -29,9 +29,66 @@
 
 | Question | Answer |
 |---|---|
-| Where am I? | Milestone `milestone-04-bundle-adjustment` is pending |
+| Where am I? | Milestone `milestone-04-bundle-adjustment` is `complete` |
 | Where am I going? | Its declared completion gate |
 | What's the goal? | See `task_plan.md` Goal |
 | What have I learned? | See `findings.md` |
-| What have I done? | Initialized durable state |
-| What am I about to do? | See `task_plan.md` Next Step |
+| What have I done? | Verified completion evidence with 50 passed, 0 failed, and 0 skipped tests |
+| What am I about to do? | No further action; milestone complete. |
+
+## 2026-11-09 M04启动
+
+- verify_milestones、activate_milestone和session-catchup已运行。读完本阶段3文件和总设计。
+- 已保存M04详细设计；原数据和M03产物不修改，M05不启动。
+- 工作区已有隔离，不创建多余worktree。后续全部数值命令使用明确asp360_new Python，避免系统解释器缺NumPy。
+
+### 求解器与检查实现
+
+- 先观察缺失bundle/bundle_evaluation/bundle_cli模块的失败，再实现求解、留一检查和渲染合约导出。
+- 新测试覆盖中央差分投影导数、旋转先验导数、扰动恢复、固定参考、粗差与弱交会，检查像点不参与自身三角化、失败不改资格，以及body→J2000/one-based导出。
+- 平差只接受fit数组，检查轨迹由独立评价层处理；默认先验10m/0.001rad、局部DSK法向3m，Huber1px，未依据真实检查误差调参。
+
+### run-v1启动
+
+- 最新完整测试30 passed/0 failed/0 skipped，退出0；ResourceWarning已修正为上下文管理文件读取。
+- 真实命令：`PYTHONPATH=<adapter>/src OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 <asp360_new>/bin/python -m hayabusa2_adapter.bundle_cli --network <renderer>/outputs/ryugu-realism/m03/tracks.json --audit <renderer>/outputs/ryugu-realism/m01/input-audit.json --calibration <renderer>/outputs/ryugu-realism/m02/calibration-manifest.json --output <renderer>/outputs/ryugu-realism/m04/run-v1`，其中adapter为/home/gengxun/code/hayabusa2-render-adapter-worktrees/m03，renderer为/home/gengxun/code/smallbody-renderer。
+- 独立只读数学/代码审阅m04_math_review已启动，不启动第二个真实求解器。
+
+### run-v1诊断及run-v2准备
+
+- run-v1退出2（健全性未通过），输出与源码快照保留，不重写或验收。
+- independent math review未发现Schur、雅可比、隔离或导出错误；要求补日期统计，指出局部平面逃逸与源CK滚转差。
+- 新增实际网格距离及梯度、远质心长三角形反例、非线性surface callback、日期统计、旋转调查分类和真实CK外部cwd回归测试。
+- 新调查项解决方法已写设计；未放宽像点门槛、未更改先验、未重新选检查集。
+
+### run-v2结果与收敛预算
+
+- run-v2真实非线性软表面约束：实际最近距离中位数0.339m/P90 1.800m/max10.837m，无>30m实际距离；径向最大23.215m。位置修正最大21.994m。
+- 独立检查0.21734/0.62353px，所有40523资格观测仍无后验失败；276帧都有按日期/帧统计。18项旋转告警均由严格逐CK来源核验支持：HK128帧、AOCS148帧，所有超限项为HK。未删告警、未改先验。
+- 30次迭代仍持续下降，最后相对下降约4e-7，尚未达到1e-7预设数值收敛。run-v2退出2，未验收。只增加迭代预算到100，其他参数不变，下一运行run-v3。
+
+### run-v3与保存产物验证
+
+- run-v3在第38次外迭代按原1e-7相对代价准则收敛，退出0，独立中位数0.21733764/P90 0.62352725px。
+- 独立验证采用不同的射线求和再减去留出项的代数实现，已重算40523观测、全局/日期/帧误差和真实软表面/先验目标一致。
+- 首次保存产物验证在轮廓浮点重算处停止；单独全276帧复核未复现掩膜差异。距离图/均值是float32，固定1e-6绝对比较可能小于其ULP。加入float32回归测试：只允许距离均值最多4ULP舍入，IoU和像元计数仍要求完全相同，0.01px或任何像元变化仍拒绝；不涉及0.5/1.5px科学门槛。重跑完整验证并记录最大实际轮廓舍入差。
+
+### 验收准备
+
+- 保存产物验证退出0，9 passed/0 failed/0 skipped，见run-v3/validation.json。
+- 影像源哈希、全276轮廓、输出CSV/TSAI/J2000、相机基准、真实非线性表面和代价、HK/AOCS逐核核验全部通过。
+- 独立数学复核无阻塞问题；如实保留轮廓略变差、roll超限告警和仅相对代价停止的限制。
+- 产品README已补复现命令。后置发布流程独立于科学关闭，避免文档PR与状态关闭循环依赖。
+
+### 正式验收
+
+- 最新全量单元测试41 passed/0 failed/0 skipped，退出0；git diff --check通过。
+- 9项独立产物验证均通过；正式adjusted-states/geometry-report逐字复制run-v3，并核验哈希。
+- 验收报告docs/ryugu-realism/bundle-adjustment.md；源码提交fcbce8f392aebe75e188f718af2cd91fcd71b9c0。
+- 原适配器工作区6项既存源码/测试文件哈希与M03快照完全一致；未跟踪tmp和docs/superpowers保留。
+
+## Session Close: 2026-11-09
+
+- Outcome: `complete`
+- Fresh test totals: 50 passed, 0 failed, 0 skipped
+- Evidence verified at: `2026-11-09T12:00:49.432457Z`
