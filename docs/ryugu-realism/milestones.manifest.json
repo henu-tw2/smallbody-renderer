@@ -1,0 +1,213 @@
+{
+  "schema_version": 1,
+  "project_id": "ryugu-multiday-albedo-rendering",
+  "title": "龙宫多日影像反照率渲染实验",
+  "milestones": [
+    {
+      "id": "milestone-01-input-audit",
+      "title": "数据、环境与复现起点审计",
+      "dependencies": [],
+      "source_plans": [
+        "docs/ryugu-realism/design.md",
+        "docs/ryugu-realism/implementation-plan.md"
+      ],
+      "completion_gate": "审计全部本地 FITS、逐帧 SPICE、核来源及工具，并报告真实测试结果和明确缺失项。",
+      "completion_requirements": {
+        "tests": [
+          "input-audit",
+          "baseline-tests"
+        ],
+        "artifacts": [
+          "docs/ryugu-realism/input-audit.md",
+          "outputs/ryugu-realism/m01/input-audit.json"
+        ],
+        "prerequisites": [
+          "local-meta-kernel",
+          "local-dsk"
+        ]
+      }
+    },
+    {
+      "id": "milestone-02-calibration-split",
+      "title": "线性标定与冻结日期划分",
+      "dependencies": [
+        "milestone-01-input-audit"
+      ],
+      "source_plans": [
+        "docs/ryugu-realism/design.md",
+        "docs/ryugu-realism/implementation-plan.md"
+      ],
+      "completion_gate": "取得可追溯线性 I/F，完成像元与单位校验及按日期划分；未经标定 L2a 不能代替。",
+      "completion_requirements": {
+        "tests": [
+          "radiometric-validation",
+          "split-isolation"
+        ],
+        "artifacts": [
+          "outputs/ryugu-realism/m02/calibration-manifest.json",
+          "outputs/ryugu-realism/m02/splits.json"
+        ],
+        "prerequisites": [
+          "local-meta-kernel",
+          "local-dsk"
+        ]
+      }
+    },
+    {
+      "id": "milestone-03-control-network",
+      "title": "多日匹配与连接点网",
+      "dependencies": [
+        "milestone-02-calibration-split"
+      ],
+      "source_plans": [
+        "docs/ryugu-realism/design.md",
+        "docs/ryugu-realism/implementation-plan.md"
+      ],
+      "completion_gate": "真实多日网通过可见性、粗差、三角化和连通性检查，保留独立检查点。",
+      "completion_requirements": {
+        "tests": [
+          "matching-tests",
+          "real-network-validation"
+        ],
+        "artifacts": [
+          "outputs/ryugu-realism/m03/tracks.json",
+          "outputs/ryugu-realism/m03/network-report.json"
+        ],
+        "prerequisites": [
+          "local-meta-kernel",
+          "local-dsk"
+        ]
+      }
+    },
+    {
+      "id": "milestone-04-bundle-adjustment",
+      "title": "SPICE与DSK约束平差",
+      "dependencies": [
+        "milestone-03-control-network"
+      ],
+      "source_plans": [
+        "docs/ryugu-realism/design.md",
+        "docs/ryugu-realism/implementation-plan.md"
+      ],
+      "completion_gate": "完成带基准和合理先验的平差，独立地标中位数<=0.5px/P90<=1.5px，记录轮廓和位姿修正证据；未达标不得宣称完成。",
+      "completion_requirements": {
+        "tests": [
+          "bundle-tests",
+          "independent-geometry-validation"
+        ],
+        "artifacts": [
+          "outputs/ryugu-realism/m04/adjusted-states.json",
+          "outputs/ryugu-realism/m04/geometry-report.json"
+        ],
+        "prerequisites": [
+          "local-meta-kernel",
+          "local-dsk"
+        ]
+      }
+    },
+    {
+      "id": "milestone-05-photometry-baselines",
+      "title": "全局光度与渲染基线",
+      "dependencies": [
+        "milestone-04-bundle-adjustment"
+      ],
+      "source_plans": [
+        "docs/ryugu-realism/design.md",
+        "docs/ryugu-realism/implementation-plan.md"
+      ],
+      "completion_gate": "E0/E1及LS类模型在同一几何和线性尺度下运行，角度/阴影掩膜和训练验证隔离通过检查。",
+      "completion_requirements": {
+        "tests": [
+          "photometry-tests",
+          "baseline-render-validation"
+        ],
+        "artifacts": [
+          "outputs/ryugu-realism/m05/models.json",
+          "outputs/ryugu-realism/m05/baseline-report.json"
+        ],
+        "prerequisites": [
+          "local-meta-kernel",
+          "local-dsk"
+        ]
+      }
+    },
+    {
+      "id": "milestone-06-multiday-albedo",
+      "title": "多日反照率与不确定度",
+      "dependencies": [
+        "milestone-05-photometry-baselines"
+      ],
+      "source_plans": [
+        "docs/ryugu-realism/design.md",
+        "docs/ryugu-realism/implementation-plan.md"
+      ],
+      "completion_gate": "相对尺度固定，输出覆盖/来源/不确定度，验证未观测区域和测试亮度隔离。",
+      "completion_requirements": {
+        "tests": [
+          "albedo-tests",
+          "heldout-isolation"
+        ],
+        "artifacts": [
+          "outputs/ryugu-realism/m06/albedo-manifest.json",
+          "outputs/ryugu-realism/m06/reconstruction-report.json"
+        ],
+        "prerequisites": [
+          "local-meta-kernel",
+          "local-dsk"
+        ]
+      }
+    },
+    {
+      "id": "milestone-07-heldout-evaluation",
+      "title": "跨日对照与扩展决策",
+      "dependencies": [
+        "milestone-06-multiday-albedo"
+      ],
+      "source_plans": [
+        "docs/ryugu-realism/design.md",
+        "docs/ryugu-realism/implementation-plan.md"
+      ],
+      "completion_gate": "完成冻结协议下逐日期E0/E1/E2对照、共同掩膜指标、残差图；E3/E4运行或不采用均有依据，不要求正结果。",
+      "completion_requirements": {
+        "tests": [
+          "heldout-evaluation",
+          "evaluation-protocol-audit"
+        ],
+        "artifacts": [
+          "outputs/ryugu-realism/m07/metrics.json",
+          "outputs/ryugu-realism/m07/ablation-report.md"
+        ],
+        "prerequisites": [
+          "local-meta-kernel",
+          "local-dsk"
+        ]
+      }
+    },
+    {
+      "id": "milestone-08-reproducible-delivery",
+      "title": "最终复现与交付",
+      "dependencies": [
+        "milestone-07-heldout-evaluation"
+      ],
+      "source_plans": [
+        "docs/ryugu-realism/design.md",
+        "docs/ryugu-realism/implementation-plan.md"
+      ],
+      "completion_gate": "完整结果、命令、哈希、局限和科学结论齐全，独立输出目录复现检查通过。",
+      "completion_requirements": {
+        "tests": [
+          "reproduction-check",
+          "delivery-audit"
+        ],
+        "artifacts": [
+          "docs/ryugu-realism/final-report.md",
+          "outputs/ryugu-realism/m08/reproduction.json"
+        ],
+        "prerequisites": [
+          "local-meta-kernel",
+          "local-dsk"
+        ]
+      }
+    }
+  ]
+}
