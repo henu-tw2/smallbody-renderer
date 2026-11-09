@@ -34,3 +34,5 @@ cat /home/gengxun/code/smallbody-renderer/.planning/.active_plan
 当前仓库有此前未跟踪文档，任务适配器有既存未提交代码修改；本轮规划和只读输入处理保留这些现场，不自动提交或覆盖。
 
 2026-11-09：用户要求一次只推进一个里程碑，完成后PR并同步本地。本次只完成M03；下游代码提交与当前仓库文档PR分别记录，缺少下游remote时不能宣称源码PR已完成。
+
+M03源码发布已补齐：[私有适配器仓库](https://github.com/henu-tw2/hayabusa2-render-adapter)、[源码PR #1](https://github.com/henu-tw2/hayabusa2-render-adapter/pull/1)。PR已合并，隔离工作区的本地main已同步；原工作区未提交改动保留。M04尚未启动。
