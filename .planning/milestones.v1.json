@@ -1,0 +1,421 @@
+{
+  "schema_version": 1,
+  "project_id": "ryugu-multiday-albedo-rendering",
+  "title": "龙宫多日影像反照率渲染实验",
+  "created_date": "2026-11-06",
+  "document_header": null,
+  "branch": "main",
+  "worktree": ".",
+  "initial_commit": "763674ef3b87caa82c499718f25f36f5235e1fb7",
+  "milestones": [
+    {
+      "id": "milestone-01-input-audit",
+      "title": "数据、环境与复现起点审计",
+      "status": "complete",
+      "dependencies": [],
+      "plan_dir": ".planning/milestone-01-input-audit",
+      "source_plans": [
+        "docs/ryugu-realism/design.md",
+        "docs/ryugu-realism/implementation-plan.md"
+      ],
+      "completion_gate": "审计全部本地 FITS、逐帧 SPICE、核来源及工具，并报告真实测试结果和明确缺失项。",
+      "completion_requirements": {
+        "tests": [
+          "input-audit",
+          "baseline-tests"
+        ],
+        "artifacts": [
+          "docs/ryugu-realism/input-audit.md",
+          "outputs/ryugu-realism/m01/input-audit.json"
+        ],
+        "prerequisites": [
+          "local-meta-kernel",
+          "local-dsk"
+        ]
+      },
+      "last_session_date": "2026-11-06",
+      "last_close_outcome": "complete",
+      "blocker": null,
+      "completion_evidence": {
+        "schema_version": 1,
+        "milestone_id": "milestone-01-input-audit",
+        "verified_at": "2026-11-06T06:19:53.773181Z",
+        "git": {
+          "status": "classified: planning documents and lifecycle state from this task; pre-existing docs/superpowers preserved; no product code or source-data edits",
+          "porcelain_v1_sha256": "c8a0b29a304889aa64d2706bbed22dc06859edff3cee7332dd0d8129a34ecb8c",
+          "commit": "763674ef3b87caa82c499718f25f36f5235e1fb7"
+        },
+        "tests": [
+          {
+            "id": "input-audit",
+            "command": "/home/gengxun/miniconda3/envs/asp360_new/bin/python outputs/ryugu-realism/m01/validate_audit.py (section input-audit; audit completeness, not original baseline suite success)",
+            "passed": 9,
+            "failed": 0,
+            "skipped": 0,
+            "exit_code": 0
+          },
+          {
+            "id": "baseline-tests",
+            "command": "/home/gengxun/miniconda3/envs/asp360_new/bin/python outputs/ryugu-realism/m01/validate_audit.py (section baseline-tests; audit completeness, not original baseline suite success)",
+            "passed": 3,
+            "failed": 0,
+            "skipped": 0,
+            "exit_code": 0
+          }
+        ],
+        "artifacts": [
+          {
+            "path": "docs/ryugu-realism/input-audit.md",
+            "sha256": "8495f1dcff15d784dcacbe53559711e9eec15fdc4e418b8a5b0a559dbc5fce9c"
+          },
+          {
+            "path": "outputs/ryugu-realism/m01/input-audit.json",
+            "sha256": "93358acd80699dce04c0783ca310e0f94837bb0758269b0d744b921d7ad91c67"
+          }
+        ],
+        "prerequisites": [
+          {
+            "id": "local-meta-kernel",
+            "path": "/home/gengxun/miniconda3/envs/asp360_new/data/hayabusa2/kernels/mk/hyb2_onc_spc_v02.tm",
+            "status": "verified",
+            "sha256": "6fe105183c8fd58eb87cc3c2ee43479a807f771a3099563cf3394f64c466c947"
+          },
+          {
+            "id": "local-dsk",
+            "path": "/home/gengxun/miniconda3/envs/asp360_new/data/hayabusa2/kernels/dsk/ryugu_shape_spc_49k_v20200323.bds",
+            "status": "verified",
+            "sha256": "44913712e7dae4505e95de33347a803a9e425c177e9c31af614106dec72e46fe"
+          }
+        ]
+      }
+    },
+    {
+      "id": "milestone-02-calibration-split",
+      "title": "线性标定与冻结日期划分",
+      "status": "complete",
+      "dependencies": [
+        "milestone-01-input-audit"
+      ],
+      "plan_dir": ".planning/milestone-02-calibration-split",
+      "source_plans": [
+        "docs/ryugu-realism/design.md",
+        "docs/ryugu-realism/implementation-plan.md"
+      ],
+      "completion_gate": "取得可追溯线性 I/F，完成像元与单位校验及按日期划分；未经标定 L2a 不能代替。",
+      "completion_requirements": {
+        "tests": [
+          "radiometric-validation",
+          "split-isolation"
+        ],
+        "artifacts": [
+          "outputs/ryugu-realism/m02/calibration-manifest.json",
+          "outputs/ryugu-realism/m02/splits.json"
+        ],
+        "prerequisites": [
+          "local-meta-kernel",
+          "local-dsk"
+        ]
+      },
+      "last_session_date": "2026-11-06",
+      "last_close_outcome": "complete",
+      "blocker": null,
+      "completion_evidence": {
+        "schema_version": 1,
+        "milestone_id": "milestone-02-calibration-split",
+        "verified_at": "2026-11-06T06:32:59.402556Z",
+        "git": {
+          "status": "classified: this task planning/lifecycle/report files plus preserved pre-existing docs/superpowers; source code and source mission data untouched",
+          "porcelain_v1_sha256": "469016e0efc3463036eda4e4d8a84e336277f6cf46859eb06e04791c064081ba",
+          "commit": "763674ef3b87caa82c499718f25f36f5235e1fb7"
+        },
+        "tests": [
+          {
+            "id": "radiometric-validation",
+            "passed": 276,
+            "failed": 0,
+            "skipped": 0,
+            "description": "per-frame FITS/PDS layout, provenance, calibration-state, time, solar-distance and independent binary checks",
+            "command": "/home/gengxun/miniconda3/envs/asp360_new/bin/python outputs/ryugu-realism/m02/validate_iof_split.py",
+            "exit_code": 0
+          },
+          {
+            "id": "split-isolation",
+            "passed": 5,
+            "failed": 0,
+            "skipped": 0,
+            "description": "four partition disjointness/coverage checks plus exactly-once test membership",
+            "command": "/home/gengxun/miniconda3/envs/asp360_new/bin/python outputs/ryugu-realism/m02/validate_iof_split.py",
+            "exit_code": 0
+          }
+        ],
+        "artifacts": [
+          {
+            "path": "outputs/ryugu-realism/m02/calibration-manifest.json",
+            "sha256": "89daa5070d1363bae78dd752b7ccbd03731f6f959e6e5df883efd83712b0df19"
+          },
+          {
+            "path": "outputs/ryugu-realism/m02/splits.json",
+            "sha256": "d147fe56afff03a7f369889782ddb4b648efc7aeaed34d48820d6a5f493d395a"
+          }
+        ],
+        "prerequisites": [
+          {
+            "id": "local-meta-kernel",
+            "path": "/home/gengxun/miniconda3/envs/asp360_new/data/hayabusa2/kernels/mk/hyb2_onc_spc_v02.tm",
+            "status": "verified",
+            "sha256": "6fe105183c8fd58eb87cc3c2ee43479a807f771a3099563cf3394f64c466c947"
+          },
+          {
+            "id": "local-dsk",
+            "path": "/home/gengxun/miniconda3/envs/asp360_new/data/hayabusa2/kernels/dsk/ryugu_shape_spc_49k_v20200323.bds",
+            "status": "verified",
+            "sha256": "44913712e7dae4505e95de33347a803a9e425c177e9c31af614106dec72e46fe"
+          }
+        ]
+      }
+    },
+    {
+      "id": "milestone-03-control-network",
+      "title": "多日匹配与连接点网",
+      "status": "complete",
+      "dependencies": [
+        "milestone-02-calibration-split"
+      ],
+      "plan_dir": ".planning/milestone-03-control-network",
+      "source_plans": [
+        "docs/ryugu-realism/design.md",
+        "docs/ryugu-realism/implementation-plan.md"
+      ],
+      "completion_gate": "真实多日网通过可见性、粗差、三角化和连通性检查，保留独立检查点。",
+      "completion_requirements": {
+        "tests": [
+          "matching-tests",
+          "real-network-validation"
+        ],
+        "artifacts": [
+          "outputs/ryugu-realism/m03/tracks.json",
+          "outputs/ryugu-realism/m03/network-report.json"
+        ],
+        "prerequisites": [
+          "local-meta-kernel",
+          "local-dsk"
+        ]
+      },
+      "last_session_date": "2026-11-09",
+      "last_close_outcome": "complete",
+      "blocker": null,
+      "completion_evidence": {
+        "schema_version": 1,
+        "milestone_id": "milestone-03-control-network",
+        "verified_at": "2026-11-09T06:48:20.169755Z",
+        "git": {
+          "status": "classified: current M03 planning and reports plus previously saved M01/M02 planning; unrelated docs/superpowers excluded; downstream code isolated and committed f146523",
+          "porcelain_v1_sha256": "f909b827ab22e2630027a2f21213c8c0ea6c034f19fd1840d014889aed59a220",
+          "commit": "763674ef3b87caa82c499718f25f36f5235e1fb7"
+        },
+        "tests": [
+          {
+            "id": "matching-tests",
+            "command": "PYTHONPATH=/home/gengxun/code/hayabusa2-render-adapter-worktrees/m03/src /home/gengxun/miniconda3/envs/asp360_new/bin/python -m unittest discover -s /home/gengxun/code/hayabusa2-render-adapter-worktrees/m03/tests -v",
+            "passed": 20,
+            "failed": 0,
+            "skipped": 0,
+            "exit_code": 0
+          },
+          {
+            "id": "real-network-validation",
+            "command": "PYTHONPATH=/home/gengxun/code/hayabusa2-render-adapter-worktrees/m03/src /home/gengxun/miniconda3/envs/asp360_new/bin/python -m hayabusa2_adapter.validate_network --run /home/gengxun/code/smallbody-renderer/outputs/ryugu-realism/m03/run-v2 --audit /home/gengxun/code/smallbody-renderer/outputs/ryugu-realism/m01/input-audit.json --calibration /home/gengxun/code/smallbody-renderer/outputs/ryugu-realism/m02/calibration-manifest.json",
+            "passed": 8,
+            "failed": 0,
+            "skipped": 0,
+            "exit_code": 0
+          }
+        ],
+        "artifacts": [
+          {
+            "path": "outputs/ryugu-realism/m03/tracks.json",
+            "sha256": "37beb61f1956ed2bbc7107382583cdfa441720db3f846ebfbed9584a54e776a4"
+          },
+          {
+            "path": "outputs/ryugu-realism/m03/network-report.json",
+            "sha256": "fdec36bd94b9b2abe2d4a41efbcd716b2c008a28ddca9edfc5740b39b8022d8d"
+          }
+        ],
+        "prerequisites": [
+          {
+            "id": "local-meta-kernel",
+            "path": "/home/gengxun/miniconda3/envs/asp360_new/data/hayabusa2/kernels/mk/hyb2_onc_spc_v02.tm",
+            "status": "verified",
+            "sha256": "6fe105183c8fd58eb87cc3c2ee43479a807f771a3099563cf3394f64c466c947"
+          },
+          {
+            "id": "local-dsk",
+            "path": "/home/gengxun/miniconda3/envs/asp360_new/data/hayabusa2/kernels/dsk/ryugu_shape_spc_49k_v20200323.bds",
+            "status": "verified",
+            "sha256": "44913712e7dae4505e95de33347a803a9e425c177e9c31af614106dec72e46fe"
+          }
+        ]
+      }
+    },
+    {
+      "id": "milestone-04-bundle-adjustment",
+      "title": "SPICE与DSK约束平差",
+      "status": "pending",
+      "dependencies": [
+        "milestone-03-control-network"
+      ],
+      "plan_dir": ".planning/milestone-04-bundle-adjustment",
+      "source_plans": [
+        "docs/ryugu-realism/design.md",
+        "docs/ryugu-realism/implementation-plan.md"
+      ],
+      "completion_gate": "完成带基准和合理先验的平差，独立地标中位数<=0.5px/P90<=1.5px，记录轮廓和位姿修正证据；未达标不得宣称完成。",
+      "completion_requirements": {
+        "tests": [
+          "bundle-tests",
+          "independent-geometry-validation"
+        ],
+        "artifacts": [
+          "outputs/ryugu-realism/m04/adjusted-states.json",
+          "outputs/ryugu-realism/m04/geometry-report.json"
+        ],
+        "prerequisites": [
+          "local-meta-kernel",
+          "local-dsk"
+        ]
+      },
+      "last_session_date": null,
+      "last_close_outcome": null,
+      "blocker": null,
+      "completion_evidence": null
+    },
+    {
+      "id": "milestone-05-photometry-baselines",
+      "title": "全局光度与渲染基线",
+      "status": "pending",
+      "dependencies": [
+        "milestone-04-bundle-adjustment"
+      ],
+      "plan_dir": ".planning/milestone-05-photometry-baselines",
+      "source_plans": [
+        "docs/ryugu-realism/design.md",
+        "docs/ryugu-realism/implementation-plan.md"
+      ],
+      "completion_gate": "E0/E1及LS类模型在同一几何和线性尺度下运行，角度/阴影掩膜和训练验证隔离通过检查。",
+      "completion_requirements": {
+        "tests": [
+          "photometry-tests",
+          "baseline-render-validation"
+        ],
+        "artifacts": [
+          "outputs/ryugu-realism/m05/models.json",
+          "outputs/ryugu-realism/m05/baseline-report.json"
+        ],
+        "prerequisites": [
+          "local-meta-kernel",
+          "local-dsk"
+        ]
+      },
+      "last_session_date": null,
+      "last_close_outcome": null,
+      "blocker": null,
+      "completion_evidence": null
+    },
+    {
+      "id": "milestone-06-multiday-albedo",
+      "title": "多日反照率与不确定度",
+      "status": "pending",
+      "dependencies": [
+        "milestone-05-photometry-baselines"
+      ],
+      "plan_dir": ".planning/milestone-06-multiday-albedo",
+      "source_plans": [
+        "docs/ryugu-realism/design.md",
+        "docs/ryugu-realism/implementation-plan.md"
+      ],
+      "completion_gate": "相对尺度固定，输出覆盖/来源/不确定度，验证未观测区域和测试亮度隔离。",
+      "completion_requirements": {
+        "tests": [
+          "albedo-tests",
+          "heldout-isolation"
+        ],
+        "artifacts": [
+          "outputs/ryugu-realism/m06/albedo-manifest.json",
+          "outputs/ryugu-realism/m06/reconstruction-report.json"
+        ],
+        "prerequisites": [
+          "local-meta-kernel",
+          "local-dsk"
+        ]
+      },
+      "last_session_date": null,
+      "last_close_outcome": null,
+      "blocker": null,
+      "completion_evidence": null
+    },
+    {
+      "id": "milestone-07-heldout-evaluation",
+      "title": "跨日对照与扩展决策",
+      "status": "pending",
+      "dependencies": [
+        "milestone-06-multiday-albedo"
+      ],
+      "plan_dir": ".planning/milestone-07-heldout-evaluation",
+      "source_plans": [
+        "docs/ryugu-realism/design.md",
+        "docs/ryugu-realism/implementation-plan.md"
+      ],
+      "completion_gate": "完成冻结协议下逐日期E0/E1/E2对照、共同掩膜指标、残差图；E3/E4运行或不采用均有依据，不要求正结果。",
+      "completion_requirements": {
+        "tests": [
+          "heldout-evaluation",
+          "evaluation-protocol-audit"
+        ],
+        "artifacts": [
+          "outputs/ryugu-realism/m07/metrics.json",
+          "outputs/ryugu-realism/m07/ablation-report.md"
+        ],
+        "prerequisites": [
+          "local-meta-kernel",
+          "local-dsk"
+        ]
+      },
+      "last_session_date": null,
+      "last_close_outcome": null,
+      "blocker": null,
+      "completion_evidence": null
+    },
+    {
+      "id": "milestone-08-reproducible-delivery",
+      "title": "最终复现与交付",
+      "status": "pending",
+      "dependencies": [
+        "milestone-07-heldout-evaluation"
+      ],
+      "plan_dir": ".planning/milestone-08-reproducible-delivery",
+      "source_plans": [
+        "docs/ryugu-realism/design.md",
+        "docs/ryugu-realism/implementation-plan.md"
+      ],
+      "completion_gate": "完整结果、命令、哈希、局限和科学结论齐全，独立输出目录复现检查通过。",
+      "completion_requirements": {
+        "tests": [
+          "reproduction-check",
+          "delivery-audit"
+        ],
+        "artifacts": [
+          "docs/ryugu-realism/final-report.md",
+          "outputs/ryugu-realism/m08/reproduction.json"
+        ],
+        "prerequisites": [
+          "local-meta-kernel",
+          "local-dsk"
+        ]
+      },
+      "last_session_date": null,
+      "last_close_outcome": null,
+      "blocker": null,
+      "completion_evidence": null
+    }
+  ]
+}
