@@ -87,7 +87,7 @@ PYTHONPATH=/home/gengxun/code/hayabusa2-render-adapter-worktrees/m03/src \
   --output /home/gengxun/code/smallbody-renderer/outputs/ryugu-realism/m03/reproduction
 ```
 
-保存产物验算运行下游`hayabusa2_adapter.validate_network --run <新运行目录> --audit <上述审计文件> --calibration <上述标定文件>`；完整命令和依赖见下游README。源码远程地址尚未配置，已向用户询问，未擅自新建公开仓库；当前仓库PR仅发布规划、报告及登记，下游源码PR待远程端点。
+保存产物验算运行下游`hayabusa2_adapter.validate_network --run <新运行目录> --audit <上述审计文件> --calibration <上述标定文件>`；完整命令和依赖见下游README。后续发布已完成：源码保存在私有仓库 [henu-tw2/hayabusa2-render-adapter](https://github.com/henu-tw2/hayabusa2-render-adapter)，[源码PR #1](https://github.com/henu-tw2/hayabusa2-render-adapter/pull/1) 已合并，合并提交 `62e0f5c142cb3c457a6ae1d1749a8c08f9985e95`。隔离工作区的本地 `main` 与 `origin/main` 一致；原适配器master的未提交修改仍保留。当前通用渲染器PR只发布规划、报告及登记，不包含任务数据或适配器源码。
 
 ## 下一里程碑
 
