@@ -26,18 +26,35 @@ Complete milestone `milestone-04-bundle-adjustment` and satisfy its declared evi
 
 ## Next Step
 
-Review the source plans and begin the first uncompleted valid-input task.
+None — milestone complete.
 
 ## Current Phase
 
-Phase 1
+Phase 3
 
 ## Phases
 
-### Phase 1: Milestone execution
+### Phase 1: 协议和求解器
 
-- [ ] Produce and verify the declared milestone evidence
-- **Status:** pending
+- [x] 核验M03验收产物、两仓库main与隔离工作区，保存M04设计
+- [x] 冻结先验、基准和检查资格协议，测试先于实现
+- [x] 实现解析雅可比、鲁棒代价、Schur求解和有限精度DSK切平面控制
+- [x] 验证已知扰动、参考固定、粗差和退化情形
+- **Status:** complete
+
+### Phase 2: 真实全网和独立检查
+
+- [x] 在全部拟合轨迹求解并记录收敛与位姿变化
+- [x] 冻结检查资格并在同一集合计算初始/调整后leave-one-observation-out误差
+- [x] 记录全部影像轮廓、实际DSK偏离与异常状态
+- **Status:** complete
+
+### Phase 3: 验收与发布
+
+- [x] 重读产物核对来源、隔离、位姿和独立门槛，独立代码审阅
+- [x] Produce and verify the declared milestone evidence
+- [x] 准备验收报告、源码发布和用户授权范围；不启动M05
+- **Status:** complete
 
 ## Decisions Made
 
@@ -48,3 +65,7 @@ Phase 1
 
 | Error | Attempt | Resolution |
 |---|---|---|
+
+## 完成后的发布流程
+
+科学验收关闭后立即完成源码和报告的PR合并、本地main同步，发布回执另存outputs/ryugu-realism/m04/publication-receipt.json；发布不改变科学验收门槛，也不启动M05。此后置流程避免把包含完成状态的文档PR作为关闭状态的循环前置条件。
