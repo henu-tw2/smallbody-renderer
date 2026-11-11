@@ -26,25 +26,49 @@ Complete milestone `milestone-07-heldout-evaluation` and satisfy its declared ev
 
 ## Next Step
 
-Review the source plans and begin the first uncompleted valid-input task.
+None — milestone complete.
 
 ## Current Phase
 
-Phase 1
+Phase 3
 
 ## Phases
 
-### Phase 1: Milestone execution
+### Phase 1: 冻结协议与评价器
 
-- [ ] Produce and verify the declared milestone evidence
-- **Status:** pending
+- [x] 核验M06依赖、85项基线测试和工作区，保存M07设计
+- [x] 测试先行实现共同掩膜、I/F指标、SSIM和分层聚合
+- [x] 实现只读来源重放、test-only编排和固定输出合同
+- **Status:** complete
+
+### Phase 2: 真实跨日期对照
+
+- [x] 评价全部276个test帧且每帧只出现一次，保留空掩膜帧
+- [x] 输出按日期/角度/区域指标、科学残差和固定显示图
+- [x] 保存E3/E4不采用依据，不以测试误差选择新模型
+- **Status:** complete
+
+### Phase 3: 验收与发布准备
+
+- [x] 独立指标/协议重放与代码复核，调查失败而不调门槛
+- [x] Produce and verify the declared milestone evidence
+- [x] 保存对照结论/局限/报告和后置PR同步范围，不启动M08
+- **Status:** complete
 
 ## Decisions Made
 
 | Decision | Rationale |
 |---|---|
+| 绝对I/F、共同掩膜、分层等权 | 不让大日期或多样点帧支配主指标 |
+| SSIM严格3×3有效窗口 | 不用未知区域填灰来获得虚高分数 |
+| E3/E4本轮不采用 | 窄相位、无PSF标定、点采样不足，不用测试调新参数 |
+| 先冻结再计算测试亮度 | 不因正负结果调整方案 |
 
 ## Errors Encountered
 
 | Error | Attempt | Resolution |
 |---|---|---|
+
+## 完成后的发布
+
+验收关闭后完成源码与报告PR合并、本地main同步，发布回执另存outputs/ryugu-realism/m07/publication-receipt.json。

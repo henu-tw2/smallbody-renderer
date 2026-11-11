@@ -29,9 +29,55 @@
 
 | Question | Answer |
 |---|---|
-| Where am I? | Milestone `milestone-07-heldout-evaluation` is pending |
+| Where am I? | Milestone `milestone-07-heldout-evaluation` is `complete` |
 | Where am I going? | Its declared completion gate |
 | What's the goal? | See `task_plan.md` Goal |
 | What have I learned? | See `findings.md` |
-| What have I done? | Initialized durable state |
-| What am I about to do? | See `task_plan.md` Next Step |
+| What have I done? | Verified completion evidence with 129 passed, 0 failed, and 0 skipped tests |
+| What am I about to do? | No further action; milestone complete. |
+
+## Execution Log
+
+- 激活M07，root分支codex/m07-heldout-evaluation；适配器feat/m07-heldout-evaluation。
+- 85passed/0failed/0skipped基线，退出0；设计和活动文件规划已保存。
+
+- 新20项指标pytest、3项编排unittest测试RED→GREEN。unittest仅收集88项会漏掉函数pytest测试，正式改用pytest全收集108passed/0failed/0skipped。首次pytest误收集导入test_partition助手造成fixture错误，导入别名修正后108通过；无产品数值更改。
+- run-v1冻结protocol与extension-decisions在上游新鲜完整性审计和新test评价前写出。独立验证器实现并行进行，不修改评价代码。
+
+- run-v1真实对照退出0，276帧全覆盖（255非空共同掩膜、21原始码值排除仍保留）。E2四日RMSE均较E0/E1低；首次结果读取后未调模型、掩膜、阈值或增益。
+- 审阅发现报告边界条件：整日期无支持或基线RMSE=0会导致None/除零。新增先失败回归后以N/A呈现，科学指标不变；正式用修补后run-v2新目录复现。
+- 指标源模块和固定协议不变，独立validator由另一任务实现，源快照单独排除该验收器并另行保存哈希。
+
+- 正式run-v2完整执行退出0；所有逐帧科学数组hash、指标、分层汇总/分箱/覆盖与run-v1逐项完全一致，修补仅处理报告缺失边界。
+- 当前pytest全套118passed/0failed/0skipped，退出0；独立验收正在重放。固定test残差图、角度曲线、逐日期RMSE及图清单已生成并人工查看范围/标签/未知区域。
+
+- 正式run-v2独立validator退出0：11passed/0failed/0skipped；全套pytest118passed/0failed/0skipped。协议/决策、828源产品、276逐帧导出/SSIM/分箱/分层指标、图3幅及清单核验。
+- 科学模块snapshot与当前源码逐文件hash一致；验收器另存快照和hash 9089af9ce185a2e5ec5035f4de2344ad9b6145bb7ff8f6dd74a003c0dfae394b。源码提交578341433874fe09df31924b900977b17dd40c1f。
+- 主要日期等权RMSE E0/E1/E2约0.004789/0.005447/0.003742 I/F，E2较E0/E1降低21.86%/31.31%，四个日期均改善；E1逐日均差于E0。只支持已知几何窄相位共同支持采样组合管线，非单独反照率归因。
+- canonical metrics/report复制核验，所有6项原始dirty适配器文件hash保留。验收关闭后两仓库PR合并同步，不启动M08。
+
+## Session Close: 2026-11-11
+
+- Outcome: `complete`
+- Fresh test totals: 129 passed, 0 failed, 0 skipped
+- Evidence verified at: `2026-11-11T08:52:50.723116Z`
+
+## Execution Evidence Details
+
+- 激活M07，root分支codex/m07-heldout-evaluation；适配器feat/m07-heldout-evaluation。
+- 85passed/0failed/0skipped基线，退出0；设计和活动文件规划已保存。
+
+- 新20项指标pytest、3项编排unittest测试RED→GREEN。unittest仅收集88项会漏掉函数pytest测试，正式改用pytest全收集108passed/0failed/0skipped。首次pytest误收集导入test_partition助手造成fixture错误，导入别名修正后108通过；无产品数值更改。
+- run-v1冻结protocol与extension-decisions在上游新鲜完整性审计和新test评价前写出。独立验证器实现并行进行，不修改评价代码。
+
+- run-v1真实对照退出0，276帧全覆盖（255非空共同掩膜、21原始码值排除仍保留）。E2四日RMSE均较E0/E1低；首次结果读取后未调模型、掩膜、阈值或增益。
+- 审阅发现报告边界条件：整日期无支持或基线RMSE=0会导致None/除零。新增先失败回归后以N/A呈现，科学指标不变；正式用修补后run-v2新目录复现。
+- 指标源模块和固定协议不变，独立validator由另一任务实现，源快照单独排除该验收器并另行保存哈希。
+
+- 正式run-v2完整执行退出0；所有逐帧科学数组hash、指标、分层汇总/分箱/覆盖与run-v1逐项完全一致，修补仅处理报告缺失边界。
+- 当前pytest全套118passed/0failed/0skipped，退出0；独立验收正在重放。固定test残差图、角度曲线、逐日期RMSE及图清单已生成并人工查看范围/标签/未知区域。
+
+- 正式run-v2独立validator退出0：11passed/0failed/0skipped；全套pytest118passed/0failed/0skipped。协议/决策、828源产品、276逐帧导出/SSIM/分箱/分层指标、图3幅及清单核验。
+- 科学模块snapshot与当前源码逐文件hash一致；验收器另存快照和hash 9089af9ce185a2e5ec5035f4de2344ad9b6145bb7ff8f6dd74a003c0dfae394b。源码提交578341433874fe09df31924b900977b17dd40c1f。
+- 主要日期等权RMSE E0/E1/E2约0.004789/0.005447/0.003742 I/F，E2较E0/E1降低21.86%/31.31%，四个日期均改善；E1逐日均差于E0。只支持已知几何窄相位共同支持采样组合管线，非单独反照率归因。
+- canonical metrics/report复制核验，所有6项原始dirty适配器文件hash保留。验收关闭后两仓库PR合并同步，不启动M08。
