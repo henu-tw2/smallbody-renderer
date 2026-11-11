@@ -29,9 +29,28 @@
 
 | Question | Answer |
 |---|---|
-| Where am I? | Milestone `milestone-05-photometry-baselines` is pending |
+| Where am I? | Milestone `milestone-05-photometry-baselines` is `complete` |
 | Where am I going? | Its declared completion gate |
 | What's the goal? | See `task_plan.md` Goal |
 | What have I learned? | See `findings.md` |
-| What have I done? | Initialized durable state |
-| What am I about to do? | See `task_plan.md` Next Step |
+| What have I done? | Verified completion evidence with 75 passed, 0 failed, and 0 skipped tests |
+| What am I about to do? | No further action; milestone complete. |
+
+## Session Close: 2026-11-11
+
+- Outcome: `complete`
+- Fresh test totals: 75 passed, 0 failed, 0 skipped
+- Evidence verified at: `2026-11-11T05:22:51.168123Z`
+
+## Execution Evidence Details
+
+- 2026-11-11：核验M01–M04并激活M05；root分支codex/m05-photometry-baselines，复用适配器隔离worktree分支feat/m05-photometry-baselines。原始dirty master、tmp及docs/superpowers均保留。
+- 原基线41项通过；模型8、几何6、编排4、独立validator6项新增测试均RED→GREEN，最新65 passed/0 failed/0 skipped。
+- 初查错误：127帧没有DYNRNG，修正为读取BITDEPTH记录码值；21帧达上限，整帧光度掩膜排除。未把raw像元直接套到已校正L2d。
+- run-v1：276帧stride8参考DSK求交，几何116.30s；四折拟合完成。独立validator10组通过。审阅反例撤回真实轮廓16px净距说法，保留采样EDT定义与限制，不改数值/掩膜。
+- 复现修补：自动写非覆盖边界解释sidecar；resume核对全部输入来源。新目录run-v2完整执行生产命令并独立验证10组通过；全部四折系数、纹理与评分和run-v1完全一致。
+- 命令：`PYTHONPATH=<adapter>/src OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 <asp360_new>/bin/python -m hayabusa2_adapter.photometry_cli --audit <root>/outputs/ryugu-realism/m01/input-audit.json --calibration <root>/outputs/ryugu-realism/m02/calibration-manifest.json --states <root>/outputs/ryugu-realism/m04/adjusted-states.json --splits <root>/outputs/ryugu-realism/m02/splits.json --output <root>/outputs/ryugu-realism/m05/run-v2`。完整绝对测试/验收命令记录于注册表completion_evidence和阶段报告。
+- 独立验证重放276源/cache、全部角度和法向、2208条确定性DSK首交/阴影采样、1104预测、828非测试角色指标。最大投影Huber梯度2.501e-11。测试不计算亮度指标。
+- 科学输出：models.json SHA2059bf7d467a32475b68d8d9f681ec6701f391f2b580296e4ab5e7f642048213；baseline-report.json SHA0ab8c27288dd16d0826f07a3331e5ee748340631f3f71ccfbb1c6b12e2081f0f。
+- 源码提交d027c9356c413e276083a8356771a88f4bf32ade，快照与当前全部模块hash一致；独立科学/validator复核无阻塞。
+- M05科学完成后执行PR合并与本地main同步，发布回执保存在outputs/ryugu-realism/m05/publication-receipt.json；本轮不启动M06。

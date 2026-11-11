@@ -11,7 +11,7 @@
 | 2 | `milestone-02-calibration-split` | 线性标定与冻结日期划分 | `complete` | `milestone-01-input-audit` | `.planning/milestone-02-calibration-split` | complete |
 | 3 | `milestone-03-control-network` | 多日匹配与连接点网 | `complete` | `milestone-02-calibration-split` | `.planning/milestone-03-control-network` | complete |
 | 4 | `milestone-04-bundle-adjustment` | SPICE与DSK约束平差 | `complete` | `milestone-03-control-network` | `.planning/milestone-04-bundle-adjustment` | complete |
-| 5 | `milestone-05-photometry-baselines` | 全局光度与渲染基线 | `pending` | `milestone-04-bundle-adjustment` | `.planning/milestone-05-photometry-baselines` | — |
+| 5 | `milestone-05-photometry-baselines` | 全局光度与渲染基线 | `complete` | `milestone-04-bundle-adjustment` | `.planning/milestone-05-photometry-baselines` | complete |
 | 6 | `milestone-06-multiday-albedo` | 多日反照率与不确定度 | `pending` | `milestone-05-photometry-baselines` | `.planning/milestone-06-multiday-albedo` | — |
 | 7 | `milestone-07-heldout-evaluation` | 跨日对照与扩展决策 | `pending` | `milestone-06-multiday-albedo` | `.planning/milestone-07-heldout-evaluation` | — |
 | 8 | `milestone-08-reproducible-delivery` | 最终复现与交付 | `pending` | `milestone-07-heldout-evaluation` | `.planning/milestone-08-reproducible-delivery` | — |

@@ -26,25 +26,50 @@ E0/E1及LS类模型在同一几何和线性尺度下运行，角度/阴影掩膜
 
 ## Next Step
 
-Review the source plans and begin the first uncompleted valid-input task.
+None — milestone complete.
 
 ## Current Phase
 
-Phase 1
+Phase 3
 
 ## Phases
 
-### Phase 1: Milestone execution
+### Phase 1: 协议、几何与线性模型
 
-- [ ] Produce and verify the declared milestone evidence
-- **Status:** pending
+- [x] 核验M01–M04依赖、工作区和41项基线测试，冻结设计
+- [x] 测试先行实现真实DSK采样、角度/阴影/边界掩膜和线性科学输出
+- [x] 测试先行实现训练隔离、稳健全局LS类拟合和未经校正亮度基线
+- **Status:** complete
+
+### Phase 2: 全量真实日期运行
+
+- [x] 对全部276帧运行固定采样网格，保留逐帧来源与覆盖
+- [x] 四折仅训练拟合、仅验证选择，输出E0/E1/LS/混合预测与条件数
+- **Status:** complete
+
+### Phase 3: 验收与发布准备
+
+- [x] 独立重放验证、代码复核和失败证据记录
+- [x] Produce and verify the declared milestone evidence
+- [x] 保存验收报告和两仓库发布范围；不启动M06
+- **Status:** complete
 
 ## Decisions Made
 
 | Decision | Rationale |
 |---|---|
+| stride=8，原像元中心0,8,...,1016 | 全276帧固定网格进行真实实验；显式采样科学产品，禁止伪装全分辨率 |
+| 直接DSK交点+实测影像线性I/F | 避免UInt16截断与显示拉伸影响拟合 |
+| 相位因子固定1 | 四日相位窄；不自由拟合相位函数 |
+| i/e<75°，采样命中掩膜EDT>2格（16px采样尺度，不保证真实轮廓净距），影像边缘16像元 | 求解前冻结工程阈值，保守隔离掩膜边缘 |
+| 影像全局raw DATAMAX < DYNRNG-1 才使用 | 不把未畸变校正raw饱和像元错误投到L2d；若有饱和帧整帧拒绝并记录 |
+| 每折训练按日期和帧等权，Huber尺度0.002 I/F | 限制邻帧数量优势；无逐帧自由增益/偏置 |
 
 ## Errors Encountered
 
 | Error | Attempt | Resolution |
 |---|---|---|
+
+## 完成后的发布
+
+科学关闭后执行源码和报告PR合并、本地main同步，回执保存在outputs/ryugu-realism/m05/；一次只完成M05。
