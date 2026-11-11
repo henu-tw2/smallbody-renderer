@@ -26,25 +26,48 @@ Complete milestone `milestone-06-multiday-albedo` and satisfy its declared evide
 
 ## Next Step
 
-Review the source plans and begin the first uncompleted valid-input task.
+None — milestone complete.
 
 ## Current Phase
 
-Phase 1
+Phase 3
 
 ## Phases
 
-### Phase 1: Milestone execution
+### Phase 1: 协议和估计器
 
-- [ ] Produce and verify the declared milestone evidence
-- **Status:** pending
+- [x] 验证M05依赖和65项基线测试，冻结M06设计和工作区
+- [x] 测试先行实现反照率、尺度转移和条件误差传播
+- [x] 测试先行实现训练隔离、产品合同和预测导出
+- **Status:** complete
+
+### Phase 2: 四折真实重建
+
+- [x] 仅训练日期重建全部面片并输出来源/覆盖/权重/误差
+- [x] 输出全部帧E2预测与训练空间诊断，不评估测试亮度
+- **Status:** complete
+
+### Phase 3: 验收与发布准备
+
+- [x] 独立验证、代码复核和可重复运行检查
+- [x] Produce and verify the declared milestone evidence
+- [x] 保存报告和后置PR/同步范围，不启动M07
+- **Status:** complete
 
 ## Decisions Made
 
 | Decision | Rationale |
 |---|---|
+| 固定M05选中模型，估计独立面片比例 | 避免同步自由优化几何/光度/反照率 |
+| 辐射0.002 I/F、配准0.5px为工程尺度 | 不冒充测量协方差，输出条件与日期敏感性 |
+| 全面片数组，未知NaN | 不以填充值制造覆盖 |
+| 仅两个训练日期 | 日期敏感性不是完整置信区间 |
 
 ## Errors Encountered
 
 | Error | Attempt | Resolution |
 |---|---|---|
+
+## 完成后的发布
+
+科学关闭后完成源码与报告PR合并和本地main同步，回执另存outputs/ryugu-realism/m06/publication-receipt.json。

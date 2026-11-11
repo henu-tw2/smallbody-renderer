@@ -426,7 +426,7 @@
     {
       "id": "milestone-06-multiday-albedo",
       "title": "多日反照率与不确定度",
-      "status": "pending",
+      "status": "complete",
       "dependencies": [
         "milestone-05-photometry-baselines"
       ],
@@ -450,10 +450,61 @@
           "local-dsk"
         ]
       },
-      "last_session_date": null,
-      "last_close_outcome": null,
+      "last_session_date": "2026-11-11",
+      "last_close_outcome": "complete",
       "blocker": null,
-      "completion_evidence": null
+      "completion_evidence": {
+        "schema_version": 1,
+        "milestone_id": "milestone-06-multiday-albedo",
+        "verified_at": "2026-11-11T07:13:38.906586Z",
+        "git": {
+          "status": "classified: M06 planning lifecycle design and acceptance report changes; unrelated docs/superpowers preserved and excluded; mission implementation isolated and committed b7f4ee4460fd176da05ec5137fc5c46408f48458",
+          "porcelain_v1_sha256": "e399ea39ac243e4a70c63cadb03cfe7e5faeefef769bd8a92aa8a108de6c68c2",
+          "commit": "34fff9ef741f4e5f09b93f815908ec2ec768503b"
+        },
+        "tests": [
+          {
+            "id": "albedo-tests",
+            "command": "PYTHONPATH=/home/gengxun/code/hayabusa2-render-adapter-worktrees/m03/src OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 /home/gengxun/miniconda3/envs/asp360_new/bin/python -m unittest discover -s /home/gengxun/code/hayabusa2-render-adapter-worktrees/m03/tests -q",
+            "passed": 85,
+            "failed": 0,
+            "skipped": 0,
+            "exit_code": 0
+          },
+          {
+            "id": "heldout-isolation",
+            "command": "PYTHONPATH=/home/gengxun/code/hayabusa2-render-adapter-worktrees/m03/src OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 /home/gengxun/miniconda3/envs/asp360_new/bin/python -m hayabusa2_adapter.validate_albedo --run /home/gengxun/code/smallbody-renderer/outputs/ryugu-realism/m06/run-v2 --m05 /home/gengxun/code/smallbody-renderer/outputs/ryugu-realism/m05/run-v2 --states /home/gengxun/code/smallbody-renderer/outputs/ryugu-realism/m04/adjusted-states.json --splits /home/gengxun/code/smallbody-renderer/outputs/ryugu-realism/m02/splits.json --dsk /home/gengxun/miniconda3/envs/asp360_new/data/hayabusa2/kernels/dsk/ryugu_shape_spc_49k_v20200323.bds",
+            "passed": 10,
+            "failed": 0,
+            "skipped": 0,
+            "exit_code": 0
+          }
+        ],
+        "artifacts": [
+          {
+            "path": "outputs/ryugu-realism/m06/albedo-manifest.json",
+            "sha256": "5155e1e0b562eda90d8681f077f5e0a633a16c887d43521ee3807f189bd8d039"
+          },
+          {
+            "path": "outputs/ryugu-realism/m06/reconstruction-report.json",
+            "sha256": "c79ecc4eeb11e8704c2d590172df0c5caf8e532bc2253c50fcd5c2f134037b72"
+          }
+        ],
+        "prerequisites": [
+          {
+            "id": "local-meta-kernel",
+            "path": "/home/gengxun/miniconda3/envs/asp360_new/data/hayabusa2/kernels/mk/hyb2_onc_spc_v02.tm",
+            "status": "verified",
+            "sha256": "6fe105183c8fd58eb87cc3c2ee43479a807f771a3099563cf3394f64c466c947"
+          },
+          {
+            "id": "local-dsk",
+            "path": "/home/gengxun/miniconda3/envs/asp360_new/data/hayabusa2/kernels/dsk/ryugu_shape_spc_49k_v20200323.bds",
+            "status": "verified",
+            "sha256": "44913712e7dae4505e95de33347a803a9e425c177e9c31af614106dec72e46fe"
+          }
+        ]
+      }
     },
     {
       "id": "milestone-07-heldout-evaluation",

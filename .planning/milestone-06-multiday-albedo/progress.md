@@ -29,9 +29,49 @@
 
 | Question | Answer |
 |---|---|
-| Where am I? | Milestone `milestone-06-multiday-albedo` is pending |
+| Where am I? | Milestone `milestone-06-multiday-albedo` is `complete` |
 | Where am I going? | Its declared completion gate |
 | What's the goal? | See `task_plan.md` Goal |
 | What have I learned? | See `findings.md` |
-| What have I done? | Initialized durable state |
-| What am I about to do? | See `task_plan.md` Next Step |
+| What have I done? | Verified completion evidence with 95 passed, 0 failed, and 0 skipped tests |
+| What am I about to do? | No further action; milestone complete. |
+
+## Execution Log
+
+- 激活M06；root分支codex/m06-multiday-albedo，适配器feat/m06-multiday-albedo。
+- 基线65passed/0failed/0skipped，退出0。设计保存docs/ryugu-realism/m06-design.md，细化活动计划。
+
+- 全77tests通过，0failed/0skipped；run-v1真实四折估计启动，命令albedo_cli见后续报告。独立validator另任务实现，不修改估计器。
+
+- run-v1真实四折完成，观测面片42449/40675/40743/42549，多日期多帧标志14973/13264/15000/16703，归一c约1.0045/1.0497/1.0373/1.0033。独立初验10组通过。
+- 重要复核修补：M05旧validation未绑定几何清单hash，自洽缓存清单可能绕过陈旧验收。M06入口加入只读M05verify新鲜重放，记录并绑定几何清单hash与源路径，独立validator再次重放；新增先失败回归。run-v1保留，正式改用修补后run-v2。
+- 通用Huber可能出现平坦极小区间，冻结稳健权重误差不代表真曲率协方差；实际所有联合/逐日期解均至少1个严格内点，无平坦个案。报告明确局限。
+
+- 正式run-v2退出0；新鲜只读M05上游10组核验通过，独立M06validator10passed/0failed/0skipped退出0；最新85unit-tests通过。
+- 当前源码提交b7f4ee4460fd176da05ec5137fc5c46408f48458，全部模块hash与run-v2实现快照相同。四折最大scaled stationarity 4.247e-14，所有联合/日期估计无零严格Huber内点。
+- 图已检查，显示未知灰色、面片质心散点和统一相对尺度；不作插值填充。正式合同文件已复制hash核验。
+- 原始适配器dirty源码6项hash与M03快照一致；准备PR合并同步，不启动M07。
+
+## Session Close: 2026-11-11
+
+- Outcome: `complete`
+- Fresh test totals: 95 passed, 0 failed, 0 skipped
+- Evidence verified at: `2026-11-11T07:13:38.906586Z`
+
+## Execution Evidence Details
+
+- 激活M06；root分支codex/m06-multiday-albedo，适配器feat/m06-multiday-albedo。
+- 基线65passed/0failed/0skipped，退出0。设计保存docs/ryugu-realism/m06-design.md，细化活动计划。
+
+- 全77tests通过，0failed/0skipped；run-v1真实四折估计启动，命令albedo_cli见后续报告。独立validator另任务实现，不修改估计器。
+
+- run-v1真实四折完成，观测面片42449/40675/40743/42549，多日期多帧标志14973/13264/15000/16703，归一c约1.0045/1.0497/1.0373/1.0033。独立初验10组通过。
+- 重要复核修补：M05旧validation未绑定几何清单hash，自洽缓存清单可能绕过陈旧验收。M06入口加入只读M05verify新鲜重放，记录并绑定几何清单hash与源路径，独立validator再次重放；新增先失败回归。run-v1保留，正式改用修补后run-v2。
+- 通用Huber可能出现平坦极小区间，冻结稳健权重误差不代表真曲率协方差；实际所有联合/逐日期解均至少1个严格内点，无平坦个案。报告明确局限。
+
+- 正式run-v2退出0；新鲜只读M05上游10组核验通过，独立M06validator10passed/0failed/0skipped退出0；最新85unit-tests通过。
+- 当前源码提交b7f4ee4460fd176da05ec5137fc5c46408f48458，全部模块hash与run-v2实现快照相同。四折最大scaled stationarity 4.247e-14，所有联合/日期估计无零严格Huber内点。
+- 图已检查，显示未知灰色、面片质心散点和统一相对尺度；不作插值填充。正式合同文件已复制hash核验。
+- 原始适配器dirty源码6项hash与M03快照一致；准备PR合并同步，不启动M07。
+
+- 溯源修补前后所有4折全面片数组和归一乘子逐项完全相同；只增强完整性验证，未改科学数值。
