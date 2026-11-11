@@ -12,6 +12,7 @@
 - [M04约束平差](bundle-adjustment.md)：独立检查验收、姿态来源、轮廓不利变化和复现入口。
 - [M05光度基线](photometry-baselines.md)：四折线性I/F模型、隔离验证、采样边界与饱和限制。
 - [M06多日反照率](multiday-albedo.md)：面片相对尺度、覆盖、来源、条件误差与日期敏感性。
+- [M07留出评价](heldout-evaluation.md)：共同掩膜下的四日真实对照、残差图、扩展决策与适用范围。
 - [初始化清单](milestones.manifest.json)：里程碑初始化来源，不替代生命周期注册表。
 
 ## 里程碑路线
@@ -38,6 +39,6 @@ cat /home/gengxun/code/smallbody-renderer/.planning/.active_plan
 
 2026-11-09：用户要求一次只推进一个里程碑，完成后PR并同步本地。本次只完成M03；下游代码提交与当前仓库文档PR分别记录，缺少下游remote时不能宣称源码PR已完成。
 
-M03源码发布已补齐：[私有适配器仓库](https://github.com/henu-tw2/hayabusa2-render-adapter)、[源码PR #1](https://github.com/henu-tw2/hayabusa2-render-adapter/pull/1)。PR已合并，隔离工作区的本地main已同步；原工作区未提交改动保留。M04 已完成，详见阶段报告；M05 已完成，详见阶段报告；M06 已完成，详见阶段报告；M07 尚未启动。
+M03源码发布已补齐：[私有适配器仓库](https://github.com/henu-tw2/hayabusa2-render-adapter)、[源码PR #1](https://github.com/henu-tw2/hayabusa2-render-adapter/pull/1)。PR已合并，隔离工作区的本地main已同步；原工作区未提交改动保留。M04 已完成，详见阶段报告；M05 已完成，详见阶段报告；M06 已完成，详见阶段报告；M07 已完成，详见阶段报告；M08 尚未启动。
 
 M04 源码：[PR #2](https://github.com/henu-tw2/hayabusa2-render-adapter/pull/2)；验收与限制见 [M04 报告](bundle-adjustment.md)。
